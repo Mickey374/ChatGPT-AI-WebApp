@@ -62,3 +62,29 @@ function chatStripe(isAi, value, uniqueId) {
     `
   )
 }
+
+
+//Function to check User input in form and integrates chatStripe
+const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    //User's chatStripe::: UserInputFromTextarea
+    chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+
+    //Clear form textarea
+    form.reset();
+
+    //Bot's chatStripe::: GenerateUniqueID->
+    const uniqueId = generateUnique();
+    chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+    //Scroll to top as AI is typing
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    const msgDiv = document.getElementById(uniqueId);
+    loader(msgDiv);
+}
+
+
