@@ -18,3 +18,20 @@ function loader(element) {
         element.textContent = "";
     }
 }
+
+//Function to implement the AI response letter by letter
+function typeText(element, text){
+    let index = 0;
+    let interval = setInterval(()=> {
+        //Check if the index is less than text length
+        if(index < text.length){
+            element.innerHTML += text.charAt(index);
+        }
+        //else if we reach end of text, clear the interval
+        else{
+            clearInterval(interval);
+        }
+    }, 20);
+
+
+}
