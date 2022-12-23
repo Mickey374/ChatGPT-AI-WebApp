@@ -85,6 +85,37 @@ const handleSubmit = async(e) => {
 
     const msgDiv = document.getElementById(uniqueId);
     loader(msgDiv);
+
+    //Fetch the Data from the server -> bot's resp
+    const response = await fetch('http://localhost:5000', {
+       method: 'POST',
+       headers: {
+        'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+        prompt: data.get('prompt')
+       })
+    })
+
+    clearInterval(loadInterval);
+
+    //Clear loading dots and add message
+    msgDiv.innerHTML = '';
+
+    //Check the reponse of the data
+    if(response.ok){
+        const data = await response.json();
+
+        //Pass the data
+        const parsedData = data.bot.trim();
+        typeText(msgDiv, parsedData);
+    }else{
+        // HandleError 
+        const err = await response.text();
+        msgDiv.innerHTML = "Ooopss ...Something went wrong.";
+        alert(err);
+    }
+
 }
 
 // Submit form and check to see if the enter key is pressed
