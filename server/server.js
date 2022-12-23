@@ -20,3 +20,22 @@ app.get('/', async (req, res) => {
         message: "Hello from Pisa",
     })
 });
+
+//Get Data from the frontend
+app.post('/', async (req, res)=>{
+    try {
+        const prompt = req.body.prompt;
+
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",      //The chat GPT model to use
+            prompt: `${prompt}`,            //The response we are passing in
+            temperature: 0.5,               //The model takes more risk
+            max_tokens: 3000,               //The max tokens in a completion
+            top_p: 1,                       
+            frequency_penalty: 0.5,         //It does not repeat similar answers
+            presence_penalty: 0
+        });
+    } catch (error) {
+        
+    }
+})
