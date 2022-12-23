@@ -12,11 +12,13 @@ function loader(element) {
 
   loadInterval = setInterval(() => {
     element.textContent += ".";
-  }, 300);
 
-  if (element.textContent === "....") {
-    element.textContent = "";
-  }
+
+    //If loading reaches 3 dots
+    if (element.textContent === "....") {
+        element.textContent = "";
+    }
+  }, 300);
 }
 
 //Function to implement the AI response letter by letter
@@ -26,6 +28,7 @@ function typeText(element, text) {
     //Check if the index is less than text length
     if (index < text.length) {
       element.innerHTML += text.charAt(index);
+      index++;
     }
     //else if we reach end of text, clear the interval
     else {
@@ -49,7 +52,7 @@ function chatStripe(isAi, value, uniqueId) {
     `
         <div class="wrapper ${isAi && 'ai'}">
             <div class="chat">
-                <div className="profile">
+                <div class="profile">
                     <img 
                         src="${isAi ? bot : user}"
                         alt="${isAi ? 'bot' : 'user'}"
