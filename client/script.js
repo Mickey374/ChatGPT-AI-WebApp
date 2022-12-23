@@ -87,4 +87,10 @@ const handleSubmit = async(e) => {
     loader(msgDiv);
 }
 
-
+// Submit form and check to see if the enter key is pressed
+form.addEventListener("submit", handleSubmit);
+form.addEventListener("keyup", (e) => {
+    if(e.keyCode === 13){
+        handleSubmit(e);
+    }
+});
